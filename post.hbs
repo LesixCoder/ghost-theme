@@ -1,0 +1,231 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! Everything inside the #post tags pulls data from the post }}
+<style type="text/css">
+
+    @media (max-width:500px) {
+        .post {
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 15px;
+        }
+    }
+
+    @media (min-width:500px) {
+        .post {
+            padding: 25px;
+        }
+    }
+
+    article a {
+        color : #337ab7;
+    }
+
+    .post-content img {
+        display: inline-block;
+        max-width: 100%;
+        height: auto;
+        padding: 4px;
+        line-height: 1.42857143;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+
+</style>
+<style>
+    #toc {
+        font: 400 16px/1.8 "Open Sans","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+        position: fixed;
+        display: none;
+        right: 0;
+        width: 25rem;
+        max-height: 83%;
+        padding: 1rem 2rem;
+        overflow-y: auto;
+        font-size: 1.3rem;
+        background: rgba(255, 255, 255, .95);
+        display: block;
+        z-index: 999;
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+        top: 50%!important;
+        transform: translateY(-48%);
+    }
+
+    #toc ol {
+        margin: 0 0 0 1em;
+        list-style: none;
+        padding: 0;
+    }
+    #toc li {
+        padding: 0;
+        position: relative;
+    }
+    #toc li:before {
+        border: 5px dashed transparent;
+        border-left: 5px solid #57a3e8;
+        position: absolute;
+        left: -1em;
+        top: .5em;
+    }
+    #toc li:before {
+        content: "";
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
+    #toc a {
+        display: block;
+        color: #6aa7c0;
+        cursor: pointer;
+        max-height: 2em;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-decoration: none;
+        transition: color .3s;
+    }
+    #toc a:hover {
+        color: #F3A01E;
+    }
+    #toc h4 {
+        padding-bottom: 0.25em;
+        margin: .75em 0;
+        border-bottom: 1px solid #b3b3b3;
+        font-size: 18px;
+        color: #3b3b3b;
+        font-family: "Open Sans","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+    }
+</style>
+
+<div class="row ">
+
+    <div class="col-md-8">
+        {{#post}}
+
+            <main class="content" role="main">
+                <article class="{{post_class}}">
+
+                    <header class="post-header">
+                        <h3 class="post-title">{{title}}</h3>
+                        <section class="post-meta">
+                            <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="YYYY年MM月DD日"}}</time> {{tags prefix=" 标签："}}
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        {{content}}
+                    </section>
+
+                    {{!阿里云广告}}
+                    <!--{{>adv_3}}-->
+
+                    <footer class="post-footer">
+
+                        <!-- <section>
+                            <h4>
+                                <span>
+                                    <small>本文版权归作者所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</small>
+                                </span>
+                            </h4>
+                            <br>
+                        </section> -->
+
+                        <!-- 多说评论 -->
+                        <!-- <section class="post-comments">
+                            <div class="ds-thread" data-thread-key="{{slug}}" data-title="{{{title}}}" data-url="{{url absolute="true"}}"></div>
+                        </section> -->
+                        <!--PC版-->
+                        <div id="SOHUCS" ></div>
+                        <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+                        <script type="text/javascript">
+                        window.changyan.api.config({
+                        appid: 'cytAaA2CN',
+                        conf: 'prod_11513be852a708d778c768bcf95fadde'
+                        });
+                        </script>
+
+                    </footer>
+
+                </article>
+                <!--You can  remove note tag  if you repalce the disqus_shortname in comments.hbs  -->
+                <aside id="toc" class="hidden-xs">
+                    <h4>文章目录</h4>
+                </aside>
+            </main>
+
+        {{/post}}
+
+    </div>
+
+    <div class="col-md-4">
+
+        {{!作者信息}}
+        {{>author_info}}
+
+        {{!标签云}}
+        {{tag_cloud}}
+
+        {{!阿里云广告}}
+        <!--{{>adv_2}}-->
+
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function() {
+        //初始化插件
+        $('#toc').initTOC({
+            selector: "h4, h5",
+            scope: "article",
+            overwrite: false,
+            prefix: "toc"
+        });
+
+        //动态设置样式,例如:滚动到一定程度之后隐藏目录
+        var mar_left = $(".post").width() / 2 + 20;
+        //var top = $("#toc").css("top");  这只能获取类似152px的字符串,下面才能获取值
+        //var top = $("#toc").position().top;
+        var top = $(window).height();
+        // $("#toc").css("top",top / 2- (top / 4)+"px");
+        $("#toc").css("top",top / 2- (top / 4)+"px");
+        $("#toc ol").html(function(i,origText){
+            return origText;
+        });
+        $("#toc").css({"margin-left":mar_left+"px"});
+        $(window).scroll(function(){
+            var window_offset = $(window).scrollTop();
+            var main_header_height = $(".main-header").height();
+            var content_height = $(".content").height();
+            if(window_offset < main_header_height - 100) {
+                $("#toc").hide();
+                //下面的条件不能用 a>x>c这种形式,只能用&&.身为一个前端小白表示伤不起...
+            }else if(window_offset > main_header_height&&main_header_height+content_height - 500 > window_offset) {
+                $("#toc").show();
+            }else{
+                $("#toc").hide();
+            }
+        });
+    });
+</script>
+<!-- 多说公共JS代码 start -->
+<!-- <script type="text/javascript">
+    var duoshuoQuery = {short_name:"请填写您自己的多说shortname"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script> -->
+<!-- 多说公共JS代码 end -->

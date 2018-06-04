@@ -1,0 +1,54 @@
+<style type="text/css">
+
+    .img-logo {
+        display: block;
+        margin: 25px auto;
+        width:130px;
+        height:130px;
+    }
+    .profile-block {
+        padding: 15px 20px 0px;
+        border-bottom: 1px solid #eceff2;
+    }
+    .profile-block:last-child {
+        border-bottom: none;
+    }
+    .social-links > table {
+        width: 30%;
+        margin: 0 auto;
+    }
+    .social-links > table td {
+        text-align: center;
+        font-size: 26px;
+    }
+    .social-links > table td a {
+        position: relative;
+        -webkit-transition: 0.2s ease;
+        -moz-transition: 0.2s ease;
+        -ms-transition: 0.2s ease;
+        transition: 0.2s ease;
+        color: #898d92;
+    }
+    table tbody > tr:nth-child(odd) > td, table tbody > tr:nth-child(odd) > th {
+        background-color: #fff;
+    }
+</style>
+
+<div class="card">
+    <div class="card-content">
+        <img src="{{@blog.logo}}" class="img-thumbnail img-circle img-logo">
+        <p style="text-align: center;"><span style="color:#666;font-size: 1.8rem;">梦存于心，功成于行</span></p>
+        <p style="text-align: center;"><span style="color:#999">{{@blog.description}}</span></p>
+        <div class="profile-block social-links">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><a href="https://github.com/lsxlsxxslxsl" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+                        {{!-- <td><a href="https://gitee.com/liusixin/events" target="_blank" title="码云"><i class="fa fa-gg-circle"></i></a></td> --}}
+                        <td><a href="mailto:lsixincoder@163.com" target="_blank" title="邮件"><i class="fa fa-envelope"></i></a></td>
+                    </tr>
+                 </tbody>
+            </table>
+        </div>
+    </div>
+</div>
